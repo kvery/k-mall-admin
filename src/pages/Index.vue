@@ -1,22 +1,50 @@
 <template>
-  <q-page class='row items-center justify-evenly'>
-    <example-component
-      :meta='meta'
-      :todos='todos'
-      active
-      title='Example component'
-    ></example-component>
-  </q-page>
+  <q-page-x padding class='bg-grey-4'>
+    <q-card class='q-layout-padding'>
+      <div class='row q-col-gutter-xs'>
+        <div class='col-6'>
+          <q-img
+            src='https://www.dmoe.cc/random.php'
+            spinner-color='white'
+            img-class='my-custom-image'
+            class='rounded-borders'
+          />
+        </div>
+        <div class='col-6'>
+          <q-img
+            src='https://www.dmoe.cc/random.php'
+            spinner-color='white'
+            img-class='my-custom-image'
+            class='rounded-borders'
+          />
+        </div>
+        <div class='col-6'>
+          <q-img
+            src='https://www.dmoe.cc/random.php'
+            spinner-color='white'
+            img-class='my-custom-image'
+            class='rounded-borders'
+          />
+        </div>
+        <div class='col-6'>
+          <q-img
+            src='https://www.dmoe.cc/random.php'
+            spinner-color='white'
+            img-class='my-custom-image'
+            class='rounded-borders'
+          />
+        </div>
+      </div>
+    </q-card>
+  </q-page-x>
 </template>
 
 <script lang='ts'>
 import { Meta, Todo } from 'components/models';
-import ExampleComponent from 'components/CompositionComponent.vue';
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
   name: 'PageIndex',
-  components: { ExampleComponent },
   setup() {
     const todos = ref<Todo[]>([
       {
@@ -47,3 +75,8 @@ export default defineComponent({
   }
 });
 </script>
+<style>
+.q-page-x * {
+  transition: all 200ms;
+}
+</style>

@@ -10,15 +10,15 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { configure } = require('quasar/wrappers');
 
-module.exports = configure(function (ctx) {
+module.exports = configure(function(ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: {
       tsCheckerConfig: {
         eslint: {
           enabled: true,
-          files: './src/**/*.{ts,tsx,js,jsx,vue}',
-        },
+          files: './src/**/*.{ts,tsx,js,jsx,vue}'
+        }
       }
     },
 
@@ -28,15 +28,10 @@ module.exports = configure(function (ctx) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://quasar.dev/quasar-cli/boot-files
-    boot: [
-      'i18n',
-      'axios',
-    ],
+    boot: ['i18n', 'axios', 'registerComponents'],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
-    css: [
-      'app.scss'
-    ],
+    css: ['app.scss'],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
     extras: [
@@ -49,12 +44,14 @@ module.exports = configure(function (ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
-      'material-icons', // optional, you are not bound to it
+      'material-icons' // optional, you are not bound to it
     ],
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
+
+      env: require('dotenv').config().parsed,
 
       // transpile: false,
       // publicPath: '/',
@@ -75,21 +72,26 @@ module.exports = configure(function (ctx) {
 
       // https://quasar.dev/quasar-cli/handling-webpack
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (/* chain */) {
+      chainWebpack(/* chain */) {
         //
-      },
+      }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
       https: false,
-      port: 8080,
+      port: 8081,
       open: true // opens browser window automatically
     },
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
     framework: {
-      config: {},
+      config: {
+        notify: {
+          timeout: 1800,
+          position: 'top'
+        }
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -102,12 +104,15 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Dialog',
+        'Notify'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: 'all',
 
     // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
     ssr: {
@@ -117,12 +122,12 @@ module.exports = configure(function (ctx) {
       // manualPostHydrationTrigger: true,
 
       prodPort: 3000, // The default port that the production server should use
-                      // (gets superseded if process.env.PORT is specified at runtime)
+      // (gets superseded if process.env.PORT is specified at runtime)
 
       maxAge: 1000 * 60 * 60 * 24 * 30,
-        // Tell browser when a file from the server should expire from cache (in ms)
+      // Tell browser when a file from the server should expire from cache (in ms)
 
-      chainWebpackWebserver (/* chain */) {
+      chainWebpackWebserver(/* chain */) {
         //
       },
 
@@ -139,7 +144,7 @@ module.exports = configure(function (ctx) {
 
       // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
       // if using workbox in InjectManifest mode
-      chainWebpackCustomSW (/* chain */) {
+      chainWebpackCustomSW(/* chain */) {
         //
       },
 
@@ -197,13 +202,11 @@ module.exports = configure(function (ctx) {
 
       packager: {
         // https://github.com/electron-userland/electron-packager/blob/master/docs/api.md#options
-
         // OS X / Mac App Store
         // appBundleId: '',
         // appCategoryType: '',
         // osxSign: '',
         // protocol: 'myapp://path',
-
         // Windows only
         // win32metadata: { ... }
       },
@@ -215,16 +218,16 @@ module.exports = configure(function (ctx) {
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpack (/* chain */) {
+      chainWebpack(/* chain */) {
         // do something with the Electron main process Webpack cfg
         // extendWebpackMain also available besides this chainWebpackMain
       },
 
       // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-      chainWebpackPreload (/* chain */) {
+      chainWebpackPreload(/* chain */) {
         // do something with the Electron main process Webpack cfg
         // extendWebpackPreload also available besides this chainWebpackPreload
-      },
+      }
     }
-  }
+  };
 });
